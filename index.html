@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <style type="text/css">
+    #btn {
+      background-color: wheat;
+      border-radius: 3px;
+      text-align: center;
+      padding: 3px 10px;
+      font-size: large;
+    }
+
+    #textArea {
+      width: 85%;
+      min-height: 150px;
+      border: 3px solid wheat;
+      border-radius: 5px;
+      font-size: 16px;
+      text-align: right;
+      padding: 7px 10px;
+      white-space: break-spaces;
+    }
+
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+      gap: 45px;
+      padding-top: 30px;
+      max-width: 360px;
+    }
+  </style>
+
+  <body>
+    <div class="app-container">
+      <textarea id="textArea"></textarea>
+      <button id="btn">شروع</button>
+    </div>
+  </body>
+  <script defer async type="text/javascript">
+    const textAreaEl = document.getElementById("textArea");
+    const buttonEl = document.getElementById("btn");
+
+    const recognition = new webkitSpeechRecognition();
+    recognition.lang = "fa-IR";
+    recognition.interimResults = true;
+
+    buttonEl.onclick = () => {
+      textAreaEl.value = "";
+      recognition.start();
+    };
+
+    recognition.onresult = (event) => {
+      const text = event.results[0][0].transcript;
+      textAreaEl.value = text;
+    };
+  </script>
+</html>
